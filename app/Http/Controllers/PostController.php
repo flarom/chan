@@ -21,7 +21,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post();
+
+        $post->content = $request->content;
+
+        $post->save();
+        return $post;
     }
 
     /**
@@ -29,7 +34,7 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        return Post::find($id);
+        return Post::findOrFail($id);
     }
 
     /**
@@ -37,7 +42,10 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->content = $request->content;
+        $post->save();
+        return $post;
     }
 
     /**
@@ -45,6 +53,7 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
     }
 }
